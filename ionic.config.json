@@ -1,0 +1,7 @@
+{
+  "name": "autoelementv2",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

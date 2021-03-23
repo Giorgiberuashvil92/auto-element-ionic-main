@@ -1,0 +1,10 @@
+<div class="container-photo" (click)="actionSheetChoiceFile()">
+
+      <ion-progress-bar type="indeterminate" *ngIf="load"></ion-progress-bar>
+
+      <img [hidden]="load" [ngClass]="src?'imgTrue':'imgFalse'" [src]="src?src:'assets/gallery.png'">
+
+      <img class="loading imgTrue" *ngIf="load" [src]="loadSrc">
+
+</div>
+<input hidden #fileUploadWeb type="file" (change)="returnFile($event.target.files[0])">

@@ -1,0 +1,15 @@
+<ion-row class="ion-align-self-center">
+
+  <ion-col class="ion-align-self-start" *ngFor="let file of files" size="auto" (click)="actionSheetChoiceAction(file)">
+    <img alt="{{file}}" style="object-fit: cover;border-radius: 10px;width:calc(19vw - 15px);height: 70px;" [src]="file">
+  </ion-col>
+
+  <ion-col *ngIf="selectedFile" class="ion-align-self-center ion-text-center">
+    <file-uploader [height]="'60px'" [width]="'calc(19vw - 15px)'" [color]="'primary'" [file]="selectedFile" (fileUploaded)="onFileUploaded($event)"></file-uploader>
+  </ion-col>
+
+  <ion-col *ngIf="allow && !selectedFile" class="ion-align-self-start" size="auto">
+    <file-select [height]="'70px'" [width]="'calc(19vw - 15px)'" [name]="'cloud-upload'" [color]="'primary'" (selectedFile)="onFileSelect($event)"></file-select>
+  </ion-col>
+
+</ion-row>

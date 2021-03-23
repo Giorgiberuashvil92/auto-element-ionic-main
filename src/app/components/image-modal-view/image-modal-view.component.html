@@ -1,0 +1,10 @@
+<ion-content fullscreen forceOverscroll="false" scrollY="false" scrollX="false">
+  <ion-item class="modal-icons ion-no-padding ion-text-center" lines="none">
+    <ion-button class="ion-no-margin close-button" slot="end" (click)="close()" fill="clear" color="light">
+      <ion-icon name="close"></ion-icon>
+    </ion-button>
+  </ion-item>
+  <ion-slides id="image-modal" [options]="sliderOpts">
+    <ion-slide><img alt="{{img}}" [src]="img"></ion-slide>
+  </ion-slides>
+</ion-content>

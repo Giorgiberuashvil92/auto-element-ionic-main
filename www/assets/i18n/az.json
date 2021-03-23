@@ -1,0 +1,152 @@
+﻿{
+  "#Маска номеров#": "NumberPrefix - код страны; NumberMask - маска номера; NumberLength - Длина номера без кода страны",
+  "NumberPrefix": "+994",
+  "NumberMask": "(00)000-00-00",
+  "NumberLength": "9",
+
+  "Hello": "Salam",
+  "WelcomeDescription": "autoElement - Müştəriləri və avtomobil hissələrin mağazalarını vasitəçilərsiz birləşdirir.",
+  "IClient": "Mən Müştəriyəm",
+  "ISeller": "Mən Satıcıyam",
+
+  "ChooseCountry": "Ölkəni seçin",
+
+  "Agreement": "İstifadəçi Saziş",
+
+  "Auth": "Avtorizasiya",
+  "Logout" : "Çixmaq",
+  "Auth-client": "Avtorizasiya | Müştəri",
+  "Auth-magazine" : "Avtorizasiya | Mağazalar",
+  "promo-offers" : "Promo",
+  "Not-offers" : "Promo təklifləri yoxdur",
+  "Get-offer" : "Təklif alın",
+
+  "Agree": "Şərtlərə razıyam",
+  "Phone": "Telefon",
+  "Code": "Şifrəni daxil edin",
+  "SendCode": "Şifrəni göndərmək",
+  "Login": "Daxil olmaq",
+  "Ok": "OK",
+  "Cancel": "Ləğv et",
+  "SendCodeNotify": "Təsdiqləyici şifrəni göndərin",
+  "ErrorSendCodeNotify": "Təsdiqləyici şifrənin göndərmə xətası",
+  "SubmitCode": "Şifrənin təsdiq olunması",
+  "ErrorSubmitCode": "Təsdiqləyici şifrə yalnışdır",
+
+  "My": "Mənim",
+  "All": "Bütün",
+  "Sellers": "Mağazalar",
+  "Settings": "Parametrlər",
+
+  "MyAds": "Elanlarım",
+  "AllAds": "Bütün Elanlar",
+  "NewAd": "Yeni elanlar",
+
+  "Description": "Hissənin adı",
+  "DescriptionHint": "Axtardığınız məlumatı ətraflı təsvir edin",
+  "Category": "Marka",
+  "Model": "Model",
+  "Year": "İl",
+  "YearHint": "Avtomobilin buraxılış ili daxil edin",
+  "VIN": "VIN",
+  "VINHint": "VIN kodu dəqiq daxil edin",
+  "State": "Vəziyyəti",
+  "Any": "Hər hansı",
+  "New": "Yeni",
+  "Used": "İkinci əl",
+
+  "BoughtForClient": "Aldım",
+  "BoughtForSeller": "Almişdır",
+  "Refresh": "Yeniləmə",
+  "Delete": "Silmək",
+  "Active": "Aktiv",
+  "notActive": "Aktiv deyil",
+  "ActiveAds": "Aktiv",
+  "ArchiveAds":"Arxivləşdirilmiş",
+
+  "Send": "Göndər",
+  "Save": "Saxlamaq",
+
+  "NotSellersModel": "Bu model üçün hələ satıcı yoxdur, sonra yoxlayın",
+  "NotSellersRegion": "Bu bölgə üzrə hələ satıcı yoxdur, „Bütün Azərbaycan“-ı seçin və ya sonra yenidən yoxlayın",
+  "ListEmpty": "Siyahı boşdur",
+  "ListMyAdsEmpty": "Müraciətlərinizin siyahısı boşdur.  Plus düyməsini basın və istədiyiniz hissəsini tələb edin",
+  "ListMyArchiveAdsEmpty": "Arxivləşdirilmiş tələblərin siyahısı boşdur",
+  "ListAllAdsEmpty": "Tələblərin siyahısı boşdur. Parametrlərə daxil olun və abunə olmaq avtomobil modelləri aktivləşdirin",
+  "AdDeleted": "Elan istifadəçi tərəfindən silinmişdir",
+  "Detail": "Ətraflı",
+  "Car": "Avtomobil",
+
+  "Offers": "Təklif",
+
+  "OfferText": "Şərh",
+  "Price": "Qiymət",
+  "Photos": "Şəkil",
+  "Currency": "AZN",
+
+  "newAdTemplate1": "Sizin müraciətinizi",
+  "newAdTemplate2": "mağaza qəbul edib, tezliklə sizə təkliflərini göndərəcəklər. Əgər sizə lazım olan şeyi təcili tapmaq lazımdırsa, onlara özünüz siyahı üzrə bir-bir zəng edə bilərsiniz.",
+
+  "ChooseSelect": "Siyahıdan seçin",
+  "SellerProfile": "Mağazanın Profilı",
+  "Subscriptions": "Abunə olmaq",
+
+  "PhotoSource": "Şəkilın mənbəyi",
+  "Camera": "Kamera",
+  "Album": "Albom",
+  "Load": "Yüklə",
+  "WaitImage": "Şəkil yüklənir",
+  "Action": "Fəaliyyət",
+  "FullScreen": "Tam ekran",
+
+  "SellerName": "Mağazanın adı",
+  "SellerNameHint": "Mağazanın və/ya fiziki şəxsin adını daxil edin",
+  "Region": "Bölgə",
+  "City": "Şəhər",
+  "Address": "Ünvan",
+  "AddressHint": "Dəqiq ünvanı daxil edin",
+  "AboutSeller": "Mağaza haqqında",
+  "AboutSellerHint": "Təsviri müştərilər görəçəkdir. Hansı model avtomobillər üçün işlədiyinizi yazın",
+  "AllCountry": "Bütün Azərbaycan",
+  "Call": "Zəng edin",
+  "UserNotFound":"İstifadəçi tapılmadı",
+  "DetailSeller": "Mağaza haqqında",
+
+  "notTextResponse": "Var. Zəng edərkən autoElement tətbiqindən olduğunuzu bildirin.",
+  "responseTemplate": ". Zəng edərkən autoElement tətbiqindən olduğunuzu bildirin.",
+
+  "Go": "Keç",
+  "CreateAd": "Sorğunun yaradılması",
+  "SendOffer": "Təklifin göndərilməsi",
+  "About": "autoElement haqqında",
+  "YourMessage": "Mesajınız",
+
+  "subscriptionErrorDate": "İlləri düzgün seçməmisiniz",
+  "StateRepair": "Ehtiyat hissələrinin vəziyyəti",
+  "SellNew": "Mən yeni ehtiyat hissələri satıram",
+  "SellUsed": "Mən işlənmiş ehtiyat hissələri satıram",
+  "Rating": "Reytinq",
+
+  "RatingHeader": "Aktivlik reytinqi",
+
+  "RatingInfoTop": "Reytinq sizin aktivliyinizə əsasən hesablanır. Göndərilmiş təkliflərin sayı nə qədər çox olarsa, reytinqiniz də o qədər yüksək olar.",
+  "RatingInfoCenter": "Yüksək reytinqli satıcıları müştərilər siyahının yuxarı hissəsində görürlər. Reytinqiniz nə qədər yüksək olarsa, müştərinin malı məhz sizdən alacağının şansı da bir o qədər yüksək olacaqdır. Bundan başqa, yüksək reytinqli satıcıya daha çox etibar edirlər.",
+  "RatingInfoBottom": "Reytinq son 10 gün ərzindəki məlumatlar əsasında hər gün yenilənir. Sizin hazırki reytinqiniz: 10-dan {{rating}}.",
+
+  "NotSellersState": "Göstərilən veziyyeti üçün hələki heç bir mağaza yoxdur. Regionu dəyişdirin və ya bütün Azərbaycan üzrə axtarmağa cəhd edin",
+  "NotSellersYear": "Göstərilən il üçün hələki heç bir mağaza yoxdur. Regionu dəyişdirin və ya bütün Azərbaycan üzrə axtarmağa cəhd edin",
+
+  "Серверные": {
+    "Новое объявление": "Yeni elan",
+    "Новое предложение": "Yeni təklif",
+    "Новое сообщение": "Yeni mesaj",
+    "Информация о рейтинге(Титл)": "Reytinqiniz",
+    "Информация о рейтинге(Текст)": "Reytinqiniz 7.0-dən aşağı düşmüşdür. Daha aktiv olun, müştərilər sizin təkliflərinizi gözləyirlər.",
+    "Информация о рейтинге1(Текст)": "Reytinqiniz 3.5-dən aşağı düşmüşdür. Daha aktiv olun, müştərilər sizin təkliflərinizi gözləyirlər."
+  },
+
+  "DeleteAlert": "Silmək istədiyinizə əminsiniz?",
+  "NotAvailable": "mənim yoxumdur",
+  "NotAvailableTextResponse": "Üzr istəyirik, bu məhsul anbarda yoxdur."
+
+}

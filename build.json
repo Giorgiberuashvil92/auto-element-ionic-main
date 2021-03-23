@@ -1,0 +1,28 @@
+{
+  "android": {
+    "debug": {
+      "keystore": "resources/android/MARL7lFkho@4.jks",
+      "storePassword": "MARL7lFkho@4",
+      "alias": "key0",
+      "password" : "MARL7lFkho@4",
+      "keystoreType": "",
+      "packageType": "apk"
+    },
+    "release": {
+      "keystore": "resources/android/MARL7lFkho@4.jks",
+      "storePassword": "MARL7lFkho@4",
+      "alias": "key0",
+      "password" : "MARL7lFkho@4",
+      "keystoreType": "",
+      "packageType": "apk"
+    }
+  },
+  "ios": {
+    "debug": {
+      "developmentTeam": "GKNZR2UQZQ"
+    },
+    "release": {
+      "developmentTeam": "GKNZR2UQZQ"
+    }
+  }
+}

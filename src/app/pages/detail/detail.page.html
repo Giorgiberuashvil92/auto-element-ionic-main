@@ -1,0 +1,84 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>{{'Detail'|translate}}</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+<!--    <ion-refresher slot="fixed" pullFactor="0.5" pullMin="150" pullMax="250" (ionRefresh)="doRefresh($event)">-->
+<!--        <ion-refresher-content></ion-refresher-content>-->
+<!--    </ion-refresher>-->
+
+    <ion-list lines="none" *ngIf="loaded; else loading" style="contain: size style;">
+        <ng-container *ngIf="ad;else empty">
+            <ion-item>
+                <ion-label class="ion-text-wrap">
+                    <ion-text color="medium">
+                        <span style="font-size: 14px;"> {{ad.dateCreate | date:'HH:mm dd.MM.y'}} </span>
+                        <ng-container *ngIf="myAd">
+                            <ng-container *ngIf="!ad.archive">
+                                <span style="color: #3880ff" *ngIf="ad.active">{{'Active'|translate}}</span>
+                                <span style="color: #10dc60" *ngIf="!ad.active">{{'BoughtForClient'|translate}}</span>
+                            </ng-container>
+                            <ng-container *ngIf="ad.archive">
+                                <span style="color: #929792" *ngIf="ad.active">{{'notActive'|translate}}</span>
+                                <span style="color: #10dc60" *ngIf="!ad.active">{{'BoughtForClient'|translate}}</span>
+                            </ng-container>
+                        </ng-container>
+                        <ng-container *ngIf="!myAd">
+                            <ng-container *ngIf="ad.archive">
+                                <span style="color: #929792">{{'notActive'|translate}}</span>
+                            </ng-container>
+                            <ng-container *ngIf="!ad.archive">
+                                <span style="color: #3880ff" *ngIf="ad.active">{{'Active'|translate}}</span>
+                                <span style="color: #f04141" *ngIf="!ad.active">{{'BoughtForSeller'|translate}}</span>
+                            </ng-container>
+                        </ng-container>
+                    </ion-text>
+                    <h2>{{ad.description}}</h2>
+                    <ion-text color="medium"><p>{{'Region'|translate}}: {{ad.region|translate}}</p></ion-text>
+                    <ion-text color="medium"><p>{{'Car'|translate}}: {{ad.category}} {{ad.model}} {{ad.year}}</p>
+                    </ion-text>
+                    <ion-text *ngIf="ad.state" color="medium"><p>{{'State'|translate}}: {{ad.state|translate}}</p>
+                    </ion-text>
+                    <ion-text *ngIf="ad.vin" color="medium" >
+                        <p id="VIN">
+                            {{'VIN'|translate}}: {{ad.vin}} 
+                            <ion-icon name="copy" (click)="copyVIN()"></ion-icon>
+                            <ion-text class="is-copied" [ngClass]="{'is-copied__active' : isCopied }">{{'IsCopied' | translate}}</ion-text>
+                        </p>
+                    </ion-text>
+                </ion-label>
+            </ion-item>
+
+            <div *ngIf="myAd">
+                <ion-button expand="block" (click)="setActive(false)" color="success"
+                            *ngIf="ad.active">{{'BoughtForClient'|translate}}</ion-button>
+                <ion-button expand="block" (click)="setActive(true)" color="medium"
+                            *ngIf="!ad.active && !ad.archive">{{'Refresh'|translate}}</ion-button>
+                <ion-button expand="block" (click)="delete()" color="danger">{{'Delete'|translate}}</ion-button>
+            </div>
+
+            <app-offers [ad]="ad" [myAd]="myAd"></app-offers>
+
+
+        </ng-container>
+
+        <ng-template #empty>
+            <ion-text class="ion-text-center">
+                <p [innerHTML]="'AdDeleted'|translate"></p>
+            </ion-text>
+        </ng-template>
+
+    </ion-list>
+
+    <ng-template #loading>
+        <p class="spinnerCenter">
+            <ion-spinner color="primary"></ion-spinner>
+        </p>
+    </ng-template>
+
+</ion-content>

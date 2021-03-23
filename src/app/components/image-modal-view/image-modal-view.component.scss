@@ -1,0 +1,26 @@
+.modal-icons {
+  --background: transparent;
+  padding-top: var(--ion-safe-area-top);
+  z-index: 99999;
+  ion-icon {
+    font-size: 2rem;
+  }
+}
+
+ion-content {
+  --background: #000;
+  overflow: hidden;
+}
+
+.close-button {
+  position: relative;
+  z-index: 2;
+}
+
+ion-slides#image-modal {
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+}

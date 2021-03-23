@@ -1,0 +1,21 @@
+<ion-content>
+
+  <ion-item lines="full">
+    <ion-label position="stacked">Ссылка</ion-label>
+    <ion-input [placeholder]="'https://example.com'" [(ngModel)]="link">
+    </ion-input>
+  </ion-item>
+
+  <ion-item lines="full">
+    <ion-label position="stacked">Картинка</ion-label>
+    <photoUpload style="width: 100%" [readOnly]="false" [(src)]="photo"></photoUpload>
+  </ion-item>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button [disabled]="!link.length || !photo.length" color="primary" expand="block" (click)="save()">Сохранить</ion-button>
+  </ion-toolbar>
+</ion-footer>
+

@@ -1,0 +1,79 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>{{'NewAd'|translate}}</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+    <ion-list lines="full">
+        <ion-item>
+            <ion-label position="stacked">{{'Description'|translate}}</ion-label>
+            <ion-input [(ngModel)]="ad.description" [placeholder]="'DescriptionHint'|translate">
+            </ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="stacked">{{'Category'|translate}}</ion-label>
+            <ion-select (ionChange)="ChangeSelect($event.detail.value)" [value]="ad.category" [okText]="'Ok'|translate"
+                        [cancelText]="'Cancel'|translate"
+                        [placeholder]="'ChooseSelect'|translate">
+                <ion-select-option *ngFor="let category of categoryList"
+                                   [value]="category.name">{{category.name}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item *ngIf="ad.category" [disabled]="!showModels">
+            <ion-label position="stacked">{{'Model'|translate}}</ion-label>
+            <ion-select (ionChange)="changeModel()" [value]="ad.model" (ionFocus)="bindAlert('NotSellersModel');" [(ngModel)]="ad.model"
+                        [okText]="'Ok'|translate" [cancelText]="'Cancel'|translate"
+                        [placeholder]="'ChooseSelect'|translate">
+                <ion-select-option *ngFor="let model of models" [disabled]="checkModel(model)" [value]="model">{{model}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item *ngIf="ad.model" [disabled]="!showRegions">
+            <ion-label position="stacked">{{'Region'|translate}}</ion-label>
+            <ion-select (ionChange)="changeRegion()" (ionFocus)="bindAlert('NotSellersRegion');" [(ngModel)]="ad.region"
+                        [okText]="'Ok'|translate" [cancelText]="'Cancel'|translate"
+                        [placeholder]="'ChooseSelect'|translate">
+                <ion-select-option [value]="'AllCountry'">{{'AllCountry'|translate}}</ion-select-option>
+                <ion-select-option *ngFor="let region of regionList" [disabled]="checkRegion(region.name)" [value]="region.name">{{region.name}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item *ngIf="ad.region" [disabled]="!yearsLoaded">
+            <ion-label position="stacked">{{'Year'|translate}}</ion-label>
+<!--            <ion-datetime [placeholder]="'YearHint'|translate" min="1950" [(ngModel)]="ad.year"-->
+<!--                          pickerFormat="YYYY" displayFormat="YYYY" [doneText]="'Ok'"-->
+<!--                          [cancelText]="'Cancel'|translate"></ion-datetime>-->
+<!--            <ion-input (click)="openPicker()" [readonly]="true" [placeholder]="'YearHint'|translate" [(ngModel)]="ad.year"></ion-input>-->
+            <ion-select (ionFocus)="bindAlert('NotSellersYear');" (ionChange)="changeYear()" [placeholder]="'ChooseSelect'|translate" [(ngModel)]="ad.year"
+                        [okText]="'Ok'|translate" [cancelText]="'Cancel'|translate">
+                <ion-select-option *ngFor="let year of years" [disabled]="!this.activeYears.includes(this.year)">{{year}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item *ngIf="ad.year" [disabled]="!statesLoaded">
+            <ion-label position="stacked">{{'State'|translate}}</ion-label>
+            <ion-select (ionFocus)="bindAlert('NotSellersState');" [placeholder]="'ChooseSelect'|translate" [(ngModel)]="ad.state"
+                        [okText]="'Ok'|translate" [cancelText]="'Cancel'|translate">
+                <ion-select-option [disabled]="!activeStatesDisable('Any')" [value]="'Any'">{{'Any'|translate}}</ion-select-option>
+                <ion-select-option [disabled]="!activeStatesDisable('New')" [value]="'New'">{{'New'|translate}}</ion-select-option>
+                <ion-select-option [disabled]="!activeStatesDisable('Used')" [value]="'Used'">{{'Used'|translate}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="stacked">{{'VIN'|translate}}</ion-label>
+            <ion-input [placeholder]="'VINHint'|translate" [(ngModel)]="ad.vin">
+            </ion-input>
+        </ion-item>
+
+        <ion-button color="primary" expand="block" [disabled]="checkAd(ad)"
+                    (click)="addAd(ad)">{{'Send'|translate}}</ion-button>
+    </ion-list>
+</ion-content>

@@ -1,0 +1,45 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>{{'Sellers'|translate}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+    <ion-refresher slot="fixed" pullFactor="0.5" pullMin="150" pullMax="250" (ionRefresh)="doRefresh($event) ">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ng-container *ngIf="sellers|async as sellers; else loading">
+        <ion-virtual-scroll [itemHeight]="itemHeightFn" [items]="sellers" [trackBy]="trackByFn" *ngIf="sellers.length;else empty">
+            <ion-item style="height: 130px;" mode="md" lines="full" *virtualItem="let seller">
+                <ion-label class="ion-text-wrap">
+                    <div [routerLink]="['/seller', seller.uid]">
+                        <h2 class="oneline">{{seller.name}}</h2>
+                        <ion-text color="medium">
+                            <p class="oneline">{{seller.region}}, {{seller.city}}, {{seller.address}}</p>
+                        </ion-text>
+                        <ion-text color="medium">
+                            <p class="oneline">{{seller.description}}</p>
+                        </ion-text>
+                    </div>
+                    <ion-button fill="outline" href="tel:{{seller.phone}}">{{'Call'|translate}}</ion-button>
+                </ion-label>
+            </ion-item>
+        </ion-virtual-scroll>
+
+        <ng-template #empty>
+            <ion-text class="ion-text-center">
+                <p [innerHTML]="'ListEmpty'|translate"></p>
+            </ion-text>
+        </ng-template>
+
+    </ng-container>
+
+    <ng-template #loading>
+        <p class="spinnerCenter">
+            <ion-spinner color="primary"></ion-spinner>
+        </p>
+    </ng-template>
+
+</ion-content>

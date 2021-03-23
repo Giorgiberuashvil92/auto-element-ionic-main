@@ -1,0 +1,290 @@
+<ng-container *ngIf="myAd">
+    <!-- offers?.length || sellers?.length -->
+    <ng-container *ngIf="subsCount != 0; else notSellers">
+        <ion-segment (ionChange)="segmentChanged($event)" [value]="filter">
+            <ion-segment-button value="offers">
+                <ion-label style="display: flex; align-items: center;">{{"Offers"|translate}} 
+                    <ion-spinner style="margin-left: 10px;" *ngIf="offersLoading || sellersLoading; else offersCountLoaded" name="lines"></ion-spinner>
+                    <ng-template #offersCountLoaded>
+                        ({{offers ? offers.length : '0'}})
+                    </ng-template>
+                </ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="sellers">
+                <ion-label style="display: flex;align-items: center;">{{"Sellers"|translate}}  
+                    <ion-spinner style="margin-left: 10px;" *ngIf="sellersLoading || offersLoading; else sellersCountLoaded" name="lines"></ion-spinner>
+                    <ng-template #sellersCountLoaded>
+                     ({{subsCount ? subsCount : '0'}})
+                    </ng-template>
+                </ion-label>
+            </ion-segment-button>
+        </ion-segment>
+    </ng-container>
+    <ng-template #notSellers>
+        <ion-list-header color="primary">
+            <ion-label>{{'Offers'|translate}}</ion-label>
+        </ion-list-header>
+    </ng-template>
+</ng-container>
+
+<ion-list-header *ngIf="!myAd" color="primary">
+    <ion-label>{{'Offers'|translate}}</ion-label>
+</ion-list-header>
+<div *ngIf="!myAd && !loaded" style="width: 100%;display: flex;justify-content: center;margin-top: 150px;"><ion-spinner name="lines"></ion-spinner></div>
+
+<ng-container *ngIf="loaded">
+
+    <ng-container *ngIf="myAd">
+
+        <div [hidden]="filter !== 'offers'">
+
+            <ng-container *ngIf="offers.length else emptyOffers">
+                <div *ngFor="let offer of offers | sortRating | sortVip" style="border-bottom: 1px solid #cbcbcb">
+                    <ion-row class="ion-justify-content-center">
+                        <ion-col size="9" class="ion-align-self-start"
+                                 [routerLink]="['/seller', ad._id.toString(), offer._id.toString(), offer.userInfo.uid]">
+                            <div>
+                                <ion-text color="medium">
+                                    <p style="font-size: 16px;"
+                                       class="ion-no-margin">{{offer.dateCreate | date:'HH:mm dd.MM.y'}}</p>
+                                </ion-text>
+                                <img [hidden]="!offer.sub.vip" style="height: 14px;" src="/assets/icon/vip.png">
+                                <ion-text color="medium">
+                                    <p [ngClass]="offer.sub.vip ? 'vip':''" style="font-size: 16px;"
+                                       class="ion-no-margin">{{offer.userInfo.name}} / {{'Rating'|translate}}:
+                                    <span *ngIf="offer.userInfo.rating else notRating">{{offer.userInfo.rating > 0 ? (offer.userInfo.rating/10).toFixed(1) : '0.0'}}</span>
+                                    <ng-template #notRating><span>0.0</span></ng-template>
+                                    </p>
+                                </ion-text>
+                                <h2 style="font-size: 16px;" *ngIf="!offer.not_available" class="ion-no-margin">{{'Price'|translate}}:
+                                    <ng-container
+                                            *ngIf="offer.price">{{offer.price}} {{'Currency'|translate}}</ng-container>
+                                    <ng-container *ngIf="!offer.price">
+                                        <ion-text color="medium"><span>{{'NotPrice'|translate}}</span></ion-text>
+                                    </ng-container>
+                                </h2>
+                                <h2 style="font-size: 16px;" class="ion-no-margin">{{offer.text}}</h2>
+                            </div>
+                        </ion-col>
+                        <ion-col size="3" class="ion-text-center ion-align-self-center">
+
+                            <ion-button style="width: 32px;" fill="clear" class="ion-no-padding" color="dark"
+                                        (click)="callPhone(offer.userInfo.phone)">
+                                <ion-icon size="large" name="call"></ion-icon>
+                            </ion-button>
+
+                            <ion-button *ngIf="!ad.archive" style="width: 40px;" fill="clear" color="dark"
+                                        class="ion-no-padding"
+                                        [routerLink]="['/messages', ad._id.toString(), offer._id.toString(), offer.userInfo.uid]"
+                                        [queryParams]="{phone: offer.userInfo.phone.substr(1)}">
+                                <ion-icon slot="icon-only" size="large" name="chatbubbles-sharp"></ion-icon>
+                                <ng-container *ngIf="getUnread('offer',offer._id.toString())|async as unread">
+                                    <ion-label *ngIf="unread.length > 0"
+                                               class="label-noRead">{{unread.length}}</ion-label>
+                                </ng-container>
+                            </ion-button>
+
+                        </ion-col>
+                    </ion-row>
+                    <app-images-upload *ngIf="offer.img" [readOnly]="true" [(images)]="offer.img"></app-images-upload>
+                </div>
+            </ng-container>
+            <ng-template #emptyOffers>
+                <p *ngIf="!ad.archive else notActiveArchive" style="text-align: center;font-size: 14px;"
+                   class="ion-padding-horizontal adv-margin">
+                    <span>{{'newAdTemplate1'|translate}}</span>
+                    <span style="font-weight: 900; color: #3880ff"> {{this.subsCount}}</span>
+                    <span> {{'newAdTemplate2'|translate}}</span>
+                </p>
+                <ng-template #notActiveArchive>
+                    <ion-item class="ion-text-wrap adv-margin">
+                        <ion-label class="ion-text-wrap ion-text-center">
+                            <h2>{{'ArchiveTextClient'|translate}}</h2>
+                        </ion-label>
+                    </ion-item>
+                </ng-template>
+            </ng-template>
+
+        </div>
+
+        <div [hidden]="filter !== 'sellers'">
+            <sellers [sellersLoaded]="sellersLoaded" [category]="this.ad.aliasCategory" [sellers]="sellers" [sellersCount]="subsCount" (loadMoreEmitter)="loadMoreSubscriptions($event)"></sellers>
+        </div>
+
+    </ng-container>
+
+    <ng-container *ngIf="!myAd">
+
+        <ng-container *ngIf="offers && offers.length else createOffer">
+            <div *ngFor="let offer of offers" style="border-bottom: 1px solid #cbcbcb">
+                <ion-row class="ion-justify-content-center">
+                    <ion-col size="9" class="ion-align-self-start">
+                        <div>
+                            <ion-text color="medium">
+                                <p style="font-size: 16px;"
+                                   class="ion-no-margin">{{offer.dateCreate | date:'HH:mm dd.MM.y'}}</p>
+                            </ion-text>
+                            <h2 *ngIf="!offer.not_available" style="font-size: 16px;" class="ion-no-margin">{{'Price'|translate}}:
+                                <ng-container
+                                        *ngIf="offer.price">{{offer.price}} {{'Currency'|translate}}</ng-container>
+                                <ng-container *ngIf="!offer.price">
+                                    <ion-text color="medium"><span>{{'NotPrice'|translate}}</span></ion-text>
+                                </ng-container>
+                            </h2>
+                            <h2 style="font-size: 16px;" class="ion-no-margin">{{offer.text}}</h2>
+                        </div>
+                    </ion-col>
+                    <ion-col size="3" class="ion-text-center ion-align-self-center">
+
+                        <ion-button style="width: 32px;" fill="clear" class="ion-no-padding" color="dark"
+                                    (click)="callPhone(client.phone)">
+                            <ion-icon size="large" name="call"></ion-icon>
+                        </ion-button>
+
+                        <ion-button *ngIf="!ad.archive" style="width: 40px;" fill="clear" color="dark"
+                                    class="ion-no-padding"
+                                    [routerLink]="['/messages', ad._id.toString(), offer._id.toString(), client.uid]"
+                                    [queryParams]="{phone: client.phone.substr(1)}">
+                            <ion-icon slot="icon-only" size="large" name="chatbubbles-sharp"></ion-icon>
+                            <ng-container *ngIf="getUnread('offer',offer._id.toString())|async as unread">
+                                <ion-label *ngIf="unread.length > 0" class="label-noRead">{{unread.length}}</ion-label>
+                            </ng-container>
+                        </ion-button>
+
+                    </ion-col>
+                </ion-row>
+                <app-images-upload *ngIf="offer.img" [readOnly]="true" [(images)]="offer.img"></app-images-upload>
+            </div>
+        </ng-container>
+
+        <ng-template #createOffer>
+
+            <ng-container *ngIf="ad.active && !ad.archive else notActive">
+
+                <ng-container *ngIf="seller.visible">
+                    <ion-item lines="full">
+                        <ion-textarea rows="3" [(ngModel)]="offer.text"
+                                      [placeholder]="'OfferText'|translate"></ion-textarea>
+                    </ion-item>
+                    <ion-item lines="full">
+                        <input class="price" [placeholder]="'Price'|translate" inputmode="numeric" type="text"
+                               mask="A{10}"
+                               [dropSpecialCharacters]="false" [patterns]="customPatterns"
+                               (input)="responseInput($event)"
+                               (keypress)="responseChange($event)" [validation]="false" [(ngModel)]="offer.price"
+                               suffix=" {{'Currency'|translate}}">
+                    </ion-item>
+                    <ion-item lines="full">
+                        <ion-label position="stacked">{{'Photos'|translate}}</ion-label>
+                        <app-images-upload count="5" [readOnly]="false" [(images)]="offer.img"></app-images-upload>
+                    </ion-item>
+
+                    <div class="buttons_offer">
+                        <ion-button color="primary" size="block" [disabled]="checkOffer(offer)" (click)="addOffer(offer)">
+                            {{'Send'|translate}}
+                        </ion-button>
+
+                        <ion-button color="danger" size="block" (click)="notHaveOffer(offer)">
+                            {{'NotAvailable'|translate}}
+                        </ion-button>
+                    </div>
+
+                </ng-container>
+
+                <ng-container *ngIf="!seller.visible">
+
+                    <ion-list lines="full" *ngIf="seller as seller">
+
+                        <ion-item>
+                            <ion-label position="stacked">{{'SellerName'|translate}}</ion-label>
+                            <ion-input [placeholder]="'SellerNameHint'|translate" [(ngModel)]="seller.name"></ion-input>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label position="stacked">{{'Region'|translate}}</ion-label>
+                            <ion-select (ionChange)="ChangeSelect(seller,true)" [(ngModel)]="seller.region"
+                                        [okText]="'Ok'|translate"
+                                        [cancelText]="'Cancel'|translate"
+                                        [placeholder]="'ChooseSelect'|translate">
+                                <ion-select-option *ngFor="let region of regions"
+                                                   [value]="region.name">{{region.name}}</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+
+                        <ion-item *ngIf="seller.region">
+                            <ion-label position="stacked">{{'City'|translate}}</ion-label>
+                            <ion-select [(ngModel)]="seller.city"
+                                        [okText]="'Ok'|translate" [cancelText]="'Cancel'|translate"
+                                        [placeholder]="'ChooseSelect'|translate">
+                                <ion-select-option *ngFor="let city of cities"
+                                                   [value]="city">{{city}}</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label position="stacked">{{'Address'|translate}}</ion-label>
+                            <ion-input [placeholder]="'AddressHint'|translate" [(ngModel)]="seller.address"></ion-input>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label position="stacked">{{'Phone'|translate}}</ion-label>
+                            <input class="phone" type="tel" mask="{{'NumberMask'|translate}}"
+                                   prefix="{{'NumberPrefix'|translate}}" [(ngModel)]="seller.phone">
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label position="stacked">{{'AboutSeller'|translate}}</ion-label>
+                            <ion-textarea rows="6" [placeholder]="'AboutSellerHint'| translate"
+                                          [(ngModel)]="seller.description"></ion-textarea>
+                        </ion-item>
+
+                        <ion-item lines="full">
+                            <ion-textarea rows="3" [(ngModel)]="offer.text"
+                                          [placeholder]="'OfferText'|translate"></ion-textarea>
+                        </ion-item>
+                        <ion-item lines="full">
+                            <input class="phone" [placeholder]="'Price'|translate" inputmode="numeric" type="text"
+                                   mask="A{10}"
+                                   [dropSpecialCharacters]="false" [patterns]="customPatterns"
+                                   (input)="responseInput($event)"
+                                   (keypress)="responseChange($event)" [validation]="false" [(ngModel)]="offer.price"
+                                   suffix=" {{'Currency'|translate}}">
+                        </ion-item>
+                        <ion-item lines="full">
+                            <ion-label position="stacked">{{'Photos'|translate}}</ion-label>
+                            <app-images-upload count="5" [readOnly]="false" [(images)]="offer.img"></app-images-upload>
+                        </ion-item>
+
+                        <ion-button color="primary" size="block" [disabled]="checkOffer(offer) || checkSeller(seller)"
+                                    (click)="addSellerAndOffer(seller, offer)">
+                            {{'Send'|translate}}
+                        </ion-button>
+
+                    </ion-list>
+
+                </ng-container>
+
+            </ng-container>
+
+            <ng-template #notActive>
+                <ion-item class="ion-text-wrap">
+                    <ion-label class="ion-text-wrap ion-text-center">
+                        <h2>{{'OfferBought'|translate}}</h2>
+                    </ion-label>
+                </ion-item>
+            </ng-template>
+
+        </ng-template>
+
+    </ng-container>
+</ng-container>
+
+<div slot="fixed" *ngIf="myAd && loaded && adv && !offers.length && filter !== 'sellers'" style="position: fixed;bottom: -5px;">
+    <img class="adver" (click)="goToAdv(adv.link)" [src]="adv.photo">
+</div>
+
+<!-- <ng-template #loading>
+    <p class="spinnerCenter">
+        <ion-spinner color="primary"></ion-spinner>
+    </p>
+</ng-template> -->

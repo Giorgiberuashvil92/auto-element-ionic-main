@@ -1,0 +1,19 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>{{'RatingHeader'|translate}}</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+    <div class="ion-margin">
+        <div class="ion-padding-vertical">{{'RatingInfoTop' | translate}}</div>
+
+        <div>{{'RatingInfoCenter'|translate}}</div>
+
+        <div class="ion-padding-vertical">{{'RatingInfoBottom' | translate :{rating:rating} }}</div>
+    </div>
+</ion-content>

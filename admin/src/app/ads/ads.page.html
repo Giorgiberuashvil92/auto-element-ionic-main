@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-menu-button slot="start"></ion-menu-button>
+    <ion-title>Реклама</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item lines="full">
+    <ion-label position="stacked">Выберите страну</ion-label>
+    <ion-select (ionChange)="ChangeSelect()" [(ngModel)]="region" [okText]="'ОК'" [cancelText]="'ОТМЕНА'" [placeholder]="'Страна'" >
+      <ion-select-option *ngFor="let lang of langs"
+                         [value]="lang">{{lang}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ng-container *ngFor="let item of data">
+    <ion-card *ngIf="item.lang == region">
+      <img style="max-height: 150px;width: 100%;object-fit: cover;" [src]="item.photo" />
+      <ion-card-header class="ion-text-center">
+        <ion-card-subtitle><a target="_blank" href="{{item.link}}">{{item.link}}</a></ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content class="ion-no-padding ion-no-margin">
+        <ion-button class="ion-no-margin" color="danger" expand="block" (click)="deleteAd(item.id)">Удалить</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+</ion-content>
+
+<ion-footer *ngIf="region">
+  <ion-toolbar>
+    <ion-button *ngIf="region" color="primary" expand="block" (click)="addAd()">Добавить рекламу ({{region}})</ion-button>
+  </ion-toolbar>
+</ion-footer>

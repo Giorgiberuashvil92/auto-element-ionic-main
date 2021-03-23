@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{category.name}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+  <ion-list lines="full">
+    <ion-item *ngFor="let model of category['models'];let i = index; trackBy:trackByFn">
+      <ion-label>{{model}}</ion-label>
+      <ion-label style="text-align: right;margin-right: 10px;" [hidden]="!settings[i]" (click)="openChangeYears(model)">
+        <span style="background: #d0d0d050;padding: 5px; border-radius: 10px;font-size: 11px;vertical-align: middle;color: var(--ion-color-primary);" *ngIf="checkYears(model)">
+          {{checkYears(model).min}} - {{checkYears(model).max}}
+          <ion-icon style="vertical-align: text-bottom;" name="chevron-down"></ion-icon>
+        </span>
+      </ion-label>
+      <ion-toggle mode="ios" color="primary" [checked]="settings[i]" (click)="changeSubscription($event, model, i)"></ion-toggle>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

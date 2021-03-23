@@ -1,0 +1,72 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>{{'MyAds'|translate}}</ion-title>
+    </ion-toolbar>
+    <ion-segment (ionChange)="segmentChanged($event)" [value]="filter">
+        <ion-segment-button value="active">
+            <ion-label>{{"ActiveAds"|translate}}</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="archive">
+            <ion-label>{{"ArchiveAds"|translate}}</ion-label>
+        </ion-segment-button>
+    </ion-segment>
+</ion-header>
+
+<ion-content fullscreen>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button [routerLink]="['/addAds']">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+
+    <ion-refresher slot="fixed" pullFactor="0.5" pullMin="150" pullMax="250" (ionRefresh)="doRefresh($event) ">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-list lines="full" *ngIf="myAds|async|filter:filter as ads; else loading">
+        <ng-container *ngIf="ads.length;else empty">
+            <ion-item *ngFor="let ad of ads;trackBy:trackByFn">
+                <ion-label [routerLink]="['/detail', ad._id.toString()]">
+                    <ion-text color="medium">
+                        <p>{{ad.dateCreate | date:'HH:mm dd.MM.y'}}
+                            <ng-container *ngIf="!ad.archive">
+                                <span style="color: #3880ff" *ngIf="ad.active">{{'Active'|translate}}</span>
+                                <span style="color: #10dc60" *ngIf="!ad.active">{{'BoughtForClient'|translate}}</span>
+                            </ng-container>
+                            <ng-container *ngIf="ad.archive">
+                                <span style="color: #929792" *ngIf="ad.active">{{'notActive'|translate}}</span>
+                                <span style="color: #10dc60" *ngIf="!ad.active">{{'BoughtForClient'|translate}}</span>
+                            </ng-container>
+                        </p>
+                    </ion-text>
+                    <h2>{{ad.description}}</h2>
+                    <ion-text color="medium">
+                        <p>{{ad.category}} {{ad.model}} ({{ad.year}})</p>
+                    </ion-text>
+                    <ion-text *ngIf="ad.state" color="medium">
+                        <p>{{'State'|translate}}: {{ad.state|translate}}</p>
+                    </ion-text>
+                </ion-label>
+                <ng-container *ngIf="getUnread('ad',ad._id.toString())|async as unread">
+                    <ion-badge color="danger" *ngIf="unread.length > 0" slot="end">{{unread.length}}</ion-badge>
+                </ng-container>
+            </ion-item>
+        </ng-container>
+
+        <ng-template #empty>
+                <ion-text *ngIf="filter == 'active'" class="ion-text-center">
+                    <p class="ion-padding" [routerLink]="['/addAds']" [innerHTML]="'ListMyAdsEmpty'" translate></p>
+                </ion-text>
+                <ion-text *ngIf="filter == 'archive'" class="ion-text-center">
+                    <p class="ion-padding" [innerHTML]="'ListMyArchiveAdsEmpty'" translate></p>
+                </ion-text>
+        </ng-template>
+
+    </ion-list>
+
+    <ng-template #loading>
+        <p class="spinnerCenter"><ion-spinner color="primary"></ion-spinner></p>
+    </ng-template>
+
+</ion-content>

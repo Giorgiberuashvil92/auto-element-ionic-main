@@ -1,0 +1,42 @@
+
+
+    <ion-list *ngIf="_sellers.length">
+
+      <ion-item *ngFor="let seller of _sellers | sortVip; trackBy:trackByFn"  mode="md" lines="full">
+        <ion-label class="ion-text-wrap">
+          <div [routerLink]="['/seller', seller.uid]">
+            <img [hidden]="!seller.sub.vip" style="height: 14px;" src="/assets/icon/vip.png">
+            <h2 [ngStyle]="{'margin-top' : seller.sub?.vip ? '-5px': ''}" [ngClass]="seller.sub.vip ? 'vip':''" class="oneline">{{seller.name}} / {{'Rating'|translate}}:
+            <span *ngIf="seller.rating else notRating">{{seller.rating > 0 ? (seller.rating/10).toFixed(1) : '0.0'}}</span>
+              <ng-template #notRating><span>0.0</span></ng-template>
+            </h2>
+            <ion-text color="medium">
+              <p class="oneline">{{seller.region}}, {{seller.city}}, {{seller.address}}</p>
+            </ion-text>
+            <ion-text color="medium">
+              <p class="oneline">{{seller.description}}</p>
+            </ion-text>
+          </div>
+        </ion-label>
+        <ion-button style="width: 32px;height: 32px;" fill="clear" class="ion-no-padding" color="dark"
+                    (click)="callPhone(seller.phone)">
+          <ion-icon size="large" name="call"></ion-icon>
+        </ion-button>
+      </ion-item>
+
+      <!-- infinite scroll add -->
+      <ion-infinite-scroll style="margin-top: 20px;" *ngIf="(_sellers.length > 0 && sellersCount) ? (_sellers.length < sellersCount) : false" threshold="100px" (ionInfinite)="loadMore($event)">
+        <ion-infinite-scroll-content
+          loadingSpinner="lines"
+          loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ion-list>
+
+    <div *ngIf="!sellersLoaded" style="width: 100%;display: flex;justify-content: center;margin-top: 150px;"><ion-spinner name="lines"></ion-spinner></div>
+    
+
+
+
+
+

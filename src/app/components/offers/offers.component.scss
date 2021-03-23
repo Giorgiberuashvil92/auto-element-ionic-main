@@ -1,0 +1,56 @@
+.icon {
+  font-size: 25px;
+  height: 100%;
+}
+
+.mr-20 {
+  margin-right: 20%;
+}
+
+.label-noRead {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  font-size: 12px;
+  border-radius: 50%;
+  background: red;
+  padding: 3px;
+  color: #fff;
+  letter-spacing: 0;
+  width: 19px;
+}
+
+.adver {
+  max-height: 150px;
+  width: 100%;
+  object-fit: cover;
+  border-top-left-radius: 11px;
+  border-top-right-radius: 11px;
+}
+
+.vip{
+  color: #3880ff;
+}
+
+input.price {
+  width: 100%;
+  border: none;
+  outline: none;
+  font: var(--ion-default-font);
+  background: transparent;
+  padding-bottom: 8px;
+  padding-top: 8px;
+}
+
+@media screen and (max-height: 600px) {
+  .adv-margin {
+    margin-bottom: 175px;
+  }
+}
+
+.buttons_offer {
+  display: flex;
+  ion-button {
+    width: 100%;
+  }
+}

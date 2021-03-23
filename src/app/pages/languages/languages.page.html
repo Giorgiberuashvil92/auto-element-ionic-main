@@ -1,0 +1,13 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>{{'ChooseCountry'|translate}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+    <ion-list lines="full">
+        <ion-item *ngFor="let language of languages" detail="true">
+            <ion-label (click)="setLanguage(language.code)">{{language.name}}</ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>

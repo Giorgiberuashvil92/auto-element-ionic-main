@@ -1,0 +1,73 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>{{userName}}</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content #content fullscreen>
+    <ion-list mode="ios" style="padding-bottom: 60px;">
+        <ng-container *ngIf="loaded; else loading">
+            <ng-container *ngFor="let message of this.messages|async; trackBy: trackByFn">
+
+                <ion-item style="margin: 5px 0;" lines="none">
+                    <div class="chat-message" [ngClass]="message.to !== this.myUid?'ion-text-right':'ion-text-left'">
+                        <div [ngClass]="message.to !== this.myUid?'right-bubble':'left-bubble'">
+
+                            <ng-container *ngIf="!message.img else img">
+                                <span class="msg-date">{{message.dateCreate|date:'dd.MM.y HH:mm'}}</span>
+                                <p class="ion-text-wrap" style="margin: 0;">{{message.text}}</p>
+                            </ng-container>
+
+                            <ng-template #img>
+                                <div [ngStyle]="{'height': message.isRead == false && message.to !== this.myUid ? '220px' : '200px'}">
+                                    <ion-thumbnail style="display: inline;">
+                                        <!--<ion-img class="image" (click)="openPreview(message.text)"
+                                                 [ngStyle]="{'margin-bottom': message.isRead == false && message.to !== this.myUid ? '10px': '0'}"
+                                                 [src]="message.text"></ion-img>-->
+                                        <img class="image" (click)="openPreview(message.text)" [ngStyle]="{'margin-bottom': message.isRead == false && message.to !== this.myUid ? '10px': '0'}" [src]="message.text">
+                                    </ion-thumbnail>
+                                </div>
+                            </ng-template>
+
+                            <div *ngIf="message.isRead == false && message.to !== this.myUid" class="dot"></div>
+
+                        </div>
+                    </div>
+                </ion-item>
+            </ng-container>
+
+        </ng-container>
+        <ng-template #loading>
+            <p class="spinnerCenter">
+                <ion-spinner color="primary"></ion-spinner>
+            </p>
+        </ng-template>
+
+    </ion-list>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button (click)="actionSheetChoiceFile()">
+                <ion-icon size="large" name="camera"></ion-icon>
+            </ion-button>
+            <ion-button (click)="callPhone()">
+                <ion-icon size="large" name="call"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-buttons style="margin-left: 5px;border-radius: 10px;border: 1px solid #CBCBCB;">
+            <ion-textarea style="margin: 0;padding-left: 10px;padding-right: 5px;" rows="1" type="text"
+                          [(ngModel)]="text" [placeholder]="'YourMessage'|translate"></ion-textarea>
+        </ion-buttons>
+        <ion-buttons slot="end">
+            <ion-button [disabled]="!text.trim().length || !loaded" (click)="send(text, false)">
+                <ion-icon size="large" name="send"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>
+<input hidden #fileUploadWeb type="file" (change)="returnFile($event.target.files[0])">

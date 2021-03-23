@@ -1,0 +1,43 @@
+<!--<ion-content>-->
+<!--    <div class="ion-text-center welcome-container">-->
+
+<!--        <h2 class="ion-padding">{{'Hello'|translate}}</h2>-->
+
+<!--        <p class="ion-padding">{{'WelcomeDescription'|translate}}</p>-->
+
+<!--        <div class="ion-padding-horizontal">-->
+<!--            <ion-button (click)="setRole('client')" class="ion-padding" expand="block">-->
+<!--&lt;!&ndash;                <ion-icon slot="start" name="person"></ion-icon>&ndash;&gt;-->
+<!--                <img slot="start" src="assets/icon/user_icon.png">-->
+<!--                <span slot="end">{{'IClient'|translate}}</span>-->
+<!--            </ion-button>-->
+<!--            <ion-button (click)="setRole('seller')" class="ion-padding" expand="block">-->
+<!--&lt;!&ndash;                <ion-icon slot="start" name="cart"></ion-icon>&ndash;&gt;-->
+<!--                <img slot="start" src="assets/icon/shop_icon.png">-->
+<!--                <span slot="end">{{'ISeller'|translate}}</span>-->
+<!--            </ion-button>-->
+<!--        </div>-->
+
+<!--    </div>-->
+<!--</ion-content>-->
+
+<ion-header>
+    <ion-toolbar>
+        <ion-title>{{'ChooseRole'|translate}}</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/languages" *ngIf="isInfo"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+    <ion-list lines="full">
+        <ion-item detail="true">
+            <ion-label (click)="setRole('client')">{{'IClient'|translate}}</ion-label>
+        </ion-item>
+        <ion-item detail="true">
+            <ion-label (click)="setRole('seller')">{{'ISeller'|translate}}</ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>
+

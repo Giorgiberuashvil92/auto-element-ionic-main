@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{'StateRepair'|translate}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+  <ion-list lines="full">
+    <ion-item>
+      <ion-label>{{'SellNew'|translate}}</ion-label>
+      <ion-toggle mode="ios" color="primary" [(ngModel)]="new" (click)="toggle($event,'New')"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label>{{'SellUsed'|translate}}</ion-label>
+      <ion-toggle mode="ios" color="primary" [(ngModel)]="used" (click)="toggle($event,'Used')"></ion-toggle>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

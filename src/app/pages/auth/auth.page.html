@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title *ngIf="userRole == 'client'">{{'Auth-Client'| translate}}</ion-title>
+        <ion-title *ngIf="userRole == 'seller'">{{'Auth-Magazine'| translate}}</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/welcome"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+    <ion-item lines="full">
+        <ion-label position="stacked">{{'Phone'|translate}}</ion-label>
+        <!--<ion-input [placeholder]="'+7(999)999-99-99'" type="tel" [readonly]="this.confirmationResult" [(ngModel)]="phone"></ion-input>-->
+
+            <input [readonly]="this.confirmationResult" class="phone" type="tel" mask="{{'NumberMask'|translate}}"
+                   prefix="{{'NumberPrefix'|translate}}" [(ngModel)]="phone">
+
+    </ion-item>
+
+    <ion-item [hidden]="!this.confirmationResult" lines="full">
+        <ion-label position="stacked">{{'Code'|translate}}</ion-label>
+        <!-- <ion-input type="text" inputmode="numeric" [(ngModel)]="code"></ion-input>-->
+        <input inputmode="numeric" class="phone" type="text" mask="000000" [(ngModel)]="code">
+    </ion-item>
+
+    <div [hidden]="this.confirmationResult" class="ion-padding" style="width: 100%;margin: 10px 0;">
+        <ion-label routerLink="/agreement"
+                   style="vertical-align: sub;text-decoration: underline;color: var(--ion-color-primary);">{{'Agree'|translate}}</ion-label>
+        <ion-checkbox style="float: right;margin-top: 4px;" [(ngModel)]="check"></ion-checkbox>
+    </div>
+
+    <ion-button class="ion-margin-top" (click)="sendPhone()" *ngIf="!this.confirmationResult"
+                [disabled]="!check || phone.length !== phoneLength('NumberLength'|translate)"
+                expand="block">{{'SendCode'|translate}}</ion-button>
+
+    <ion-button class="ion-margin-top" [hidden]="!this.confirmationResult" [disabled]="code.length !== 6"
+                (click)="sendCode()" expand="block">{{'Login'|translate}}</ion-button>
+
+    <ion-button class="ion-margin-top" color="light" [hidden]="!this.confirmationResult" (click)="cancel()"
+                expand="block">{{'Cancel'|translate}}</ion-button>
+
+    <div id="recaptcha-container"></div>
+
+</ion-content>
+

@@ -1,0 +1,73 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-firebasex": {
+      "FIREBASE_ANALYTICS_COLLECTION_ENABLED": "true",
+      "FIREBASE_PERFORMANCE_COLLECTION_ENABLED": "true",
+      "FIREBASE_CRASHLYTICS_COLLECTION_ENABLED": "true",
+      "ANDROID_ICON_ACCENT": "#1929CAFF",
+      "ANDROID_FIREBASE_PERFORMANCE_MONITORING": "false",
+      "ANDROID_PLAY_SERVICES_TAGMANAGER_VERSION": "17.0.0",
+      "ANDROID_PLAY_SERVICES_AUTH_VERSION": "18.1.0",
+      "ANDROID_FIREBASE_ANALYTICS_VERSION": "17.2.1",
+      "ANDROID_FIREBASE_MESSAGING_VERSION": "20.0.0",
+      "ANDROID_FIREBASE_CONFIG_VERSION": "19.0.3",
+      "ANDROID_FIREBASE_PERF_VERSION": "19.0.1",
+      "ANDROID_FIREBASE_AUTH_VERSION": "19.1.0",
+      "ANDROID_FIREBASE_INAPPMESSAGING_VERSION": "19.1.1",
+      "ANDROID_FIREBASE_FIRESTORE_VERSION": "21.7.0",
+      "ANDROID_FIREBASE_CRASHLYTICS_VERSION": "17.2.2",
+      "ANDROID_FIREBASE_CRASHLYTICS_NDK_VERSION": "17.2.2",
+      "ANDROID_GSON_VERSION": "2.8.6",
+      "ANDROID_FIREBASE_PERF_GRADLE_PLUGIN_VERSION": "1.3.1",
+      "PACKAGE_NAME": "ru.appelement.appelement"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "ru.appelement.appelement"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "ru.appelement.appelement"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "ru.appelement.appelement"
+    },
+    "cordova-plugin-ionic-keyboard": {
+      "PACKAGE_NAME": "ru.appelement.appelement"
+    },
+    "cordova-sqlite-storage": {
+      "PACKAGE_NAME": "ru.appelement.appelement"
+    },
+    "cordova-plugin-background-mode": {
+      "PACKAGE_NAME": "ru.appelement.appelement"
+    },
+    "cordova-plugin-camera": {
+      "ANDROID_SUPPORT_V4_VERSION": "27.+",
+      "PACKAGE_NAME": "ru.appelement.appelement"
+    },
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "ru.appelement.appelement"
+    },
+    "cordova-plugin-androidx": {
+      "PACKAGE_NAME": "ru.appelement.appelement"
+    },
+    "cordova-plugin-androidx-adapter": {
+      "PACKAGE_NAME": "ru.appelement.appelement"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "ru.appelement.appelement"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "ru.appelement.appelement"
+    },
+    "cordova-plugin-ionic-webview": {
+      "PACKAGE_NAME": "ru.appelement.appelement"
+    }
+  },
+  "dependent_plugins": {}
+}

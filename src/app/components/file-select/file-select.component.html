@@ -1,0 +1,2 @@
+<input hidden #fileUploadWeb type="file" (change)="returnFile($event.target.files[0])">
+<ion-icon [ngStyle]="{'height': height, 'width': width}" color="{{color}}" (click)="actionSheetChoiceFile()" name="{{name}}"></ion-icon>

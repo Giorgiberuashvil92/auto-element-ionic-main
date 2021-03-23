@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{'SellerProfile'|translate}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+  <ion-list lines="full" *ngIf="seller as seller">
+
+    <ion-item>
+      <ion-label position="stacked">{{'SellerName'|translate}}</ion-label>
+      <ion-input [placeholder]="'SellerNameHint'|translate" [(ngModel)]="seller.name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">{{'Region'|translate}}</ion-label>
+      <ion-select (ionChange)="ChangeSelect(seller,true)" [(ngModel)]="seller.region" [okText]="'Ok'|translate"
+                  [cancelText]="'Cancel'|translate"
+                  [placeholder]="'ChooseSelect'|translate">
+        <ion-select-option *ngFor="let region of regions"
+                           [value]="region.name">{{region.name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item *ngIf="seller.region">
+      <ion-label position="stacked">{{'City'|translate}}</ion-label>
+      <ion-select [(ngModel)]="seller.city"
+                  [okText]="'Ok'|translate" [cancelText]="'Cancel'|translate"
+                  [placeholder]="'ChooseSelect'|translate">
+        <ion-select-option *ngFor="let city of cities" [value]="city">{{city}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">{{'Address'|translate}}</ion-label>
+      <ion-input [placeholder]="'AddressHint'|translate" [(ngModel)]="seller.address"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">{{'Phone'|translate}}</ion-label>
+        <input class="phone" type="tel" mask="{{'NumberMask'|translate}}"
+               prefix="{{'NumberPrefix'|translate}}" [(ngModel)]="seller.phone">
+    </ion-item>
+
+
+
+    <ion-item>
+      <ion-label position="stacked">{{'AboutSeller'|translate}}</ion-label>
+      <ion-textarea rows="6" [placeholder]="'AboutSellerHint'| translate" [(ngModel)]="seller.description"></ion-textarea>
+    </ion-item>
+
+    <ion-button color="primary" expand="block" [disabled]="checkSeller(seller)" (click)="update(seller)">{{'Save'|translate}}</ion-button>
+  </ion-list>
+
+</ion-content>

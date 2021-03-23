@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-menu-button slot="start"></ion-menu-button>
+    <ion-title>Пользователи</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item lines="full">
+    <ion-label position="stacked">Выберите страну</ion-label>
+    <ion-select  [(ngModel)]="region" [okText]="'ОК'" [cancelText]="'ОТМЕНА'" [placeholder]="'Страна'" >
+      <ion-select-option *ngFor="let lang of langs"
+                         [value]="lang">{{lang}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+
+  <ion-item lines="full">
+    <ion-label position="stacked">UID пользователя</ion-label>
+    <ion-input [(ngModel)]="uid">
+    </ion-input>
+  </ion-item>
+  <ion-button [disabled]="!uid.length || !region.length" color="primary" expand="block" (click)="findUser()">Найти</ion-button>
+
+  <ng-container *ngIf="subs && subs.length">
+
+    <ion-item-divider>
+      <ion-label>
+        Подписка
+      </ion-label>
+      <ion-label slot="end" style="margin-right: 29px;">
+        VIP
+      </ion-label>
+    </ion-item-divider>
+
+
+    <ion-item lines="full" *ngFor="let sub of subs; let i = index;">
+      <ion-label>{{sub.category}}
+        <span *ngIf="sub.min && sub.max">
+          ({{sub.min}} - {{sub.max}})
+        </span>
+        <div *ngIf="sub?.dateEnd && sub?.vip">{{sub.dateEnd|date:'dd-MM-yyyy'}}</div>
+      </ion-label>
+
+      <ion-toggle mode="ios" color="primary" [checked]="sub?.vip"  (click)="changeVip($event, sub.category, i)"></ion-toggle>
+    </ion-item>
+
+
+    <ion-datetime hidden #datetime></ion-datetime>
+
+  </ng-container>
+
+  <div *ngIf="userInfo" class="ion-padding">
+    <div class="ion-margin-vertical" style="font-size: 14px;color: #8d8d8d" *ngFor="let key of objectKeys(userInfo)" [hidden]="key == 'token'" >{{key + ': ' + userInfo[key]}}</div>
+  </div>
+
+</ion-content>
+
+<ion-footer *ngIf="userInfo">
+  <ion-button color="danger" expand="block" (click)="deleteUser()">Удалить</ion-button>
+</ion-footer>

@@ -1,0 +1,8 @@
+.is-copied {
+    opacity: 0;
+    transition: opacity .4s;
+
+    &__active {
+        opacity: 1;
+    }
+}

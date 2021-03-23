@@ -1,0 +1,5 @@
+<ion-slides *ngIf="img && img.length" [ngStyle]="{'height':height}" pager="{{pager}}">
+  <ion-slide *ngFor="let src of img" (click)="this.openPreview(src)">
+    <img alt="{{src}}" [ngStyle]="{'height':height,'border-radius':radius}" style="object-fit: cover;width: 100%;" src="{{src}}" />
+  </ion-slide>
+</ion-slides>

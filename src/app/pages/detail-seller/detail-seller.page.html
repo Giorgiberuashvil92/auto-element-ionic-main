@@ -1,0 +1,63 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>{{'DetailSeller'|translate}}</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/tabs/sellers"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+    <ion-refresher slot="fixed" pullFactor="0.5" pullMin="150" pullMax="250" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-card *ngIf="loaded; else loading">
+        <ng-container *ngIf="seller;else empty">
+            <ion-card-header>
+
+                <ion-card-title class="ion-text-wrap">{{seller.name}} / {{'Rating'|translate}}:
+                    <span *ngIf="seller.rating else notRating">{{seller.rating > 0 ? (seller.rating/10).toFixed(1) : '0.0'}}</span>
+                    <ng-template #notRating><span>0.0</span></ng-template>
+                </ion-card-title>
+                <ion-card-subtitle>{{seller.region}}, {{seller.city}}, {{seller.address}}</ion-card-subtitle>
+                <ion-card-subtitle>{{seller.description}}</ion-card-subtitle>
+            </ion-card-header>
+
+
+            <ng-container *ngIf="offerId && adId; else onlyCall">
+                <ion-row>
+                    <ion-col size="6">
+                        <ion-button expand="block" fill="outline"
+                                    href="tel:{{seller.phone}}">{{'Call'|translate}}</ion-button>
+                    </ion-col>
+                    <ion-col size="6" *ngIf="ad">
+                        <ion-button *ngIf="!ad.archive" [routerLink]="['/messages', adId, offerId, id]"
+                                    expand="block" fill="outline">{{'Write'|translate}}</ion-button>
+                    </ion-col>
+                </ion-row>
+            </ng-container>
+
+            <ng-template #onlyCall>
+                <ion-button expand="block" fill="outline"
+                            href="tel:{{seller.phone}}">{{'Call'|translate}}</ion-button>
+            </ng-template>
+
+        </ng-container>
+
+        <ng-template #empty>
+            <ion-text class="ion-text-center">
+                <p [innerHTML]="'UserNotFound'|translate"></p>
+            </ion-text>
+        </ng-template>
+
+    </ion-card>
+
+    <ng-template #loading>
+        <p class="spinnerCenter">
+            <ion-spinner color="primary"></ion-spinner>
+        </p>
+    </ng-template>
+
+</ion-content>

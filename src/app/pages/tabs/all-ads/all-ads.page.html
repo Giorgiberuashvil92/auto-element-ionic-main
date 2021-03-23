@@ -1,0 +1,70 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>{{'AllAds'|translate}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button *ngIf="rating > -1" [color]="colorRating(rating)" style="margin-bottom: 10px;" [routerLink]="['/rating']">
+            <span style="font-weight: 600;">{{rating > 0 ? (rating/10).toFixed(1) : '0.0'}}</span>
+        </ion-fab-button>
+        <ion-fab-button [routerLink]="['/subscriptions']">
+            <ion-icon name="toggle"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+
+        <ion-refresher slot="fixed" pullFactor="0.5" pullMin="150" pullMax="250" (ionRefresh)="doRefresh($event) ">
+            <ion-refresher-content></ion-refresher-content>
+        </ion-refresher>
+
+
+    <ng-container *ngIf="allAds|async as ads; else loading">
+        <ng-container *ngIf="ads.length;else empty">
+            <ion-virtual-scroll [itemHeight]="itemHeightFn" [items]="ads | sortUnread:unread" [trackBy]="trackByFn">
+                <ion-item style="height: 109px;" mode="md" lines="full" *virtualItem="let ad">
+                    <ion-label [routerLink]="['/detail', ad._id.toString()]">
+                        <ion-text color="medium">
+                            <p>{{ad.dateCreate | date:'HH:mm dd.MM.y'}}
+                                <span style="color: #3880ff" *ngIf="ad.active == true">{{'Active'|translate}}</span>
+                                <span style="color: #f04141"
+                                      *ngIf="ad.active == false">{{'BoughtForSeller'|translate}}</span>
+                            </p>
+                        </ion-text>
+                        <h2 [ngStyle]="{'font-weight': this.checkRead(ad._id.toString())?'normal':'bold'}">{{ad.description}}</h2>
+                        <ion-text color="medium">
+                            <p>{{ad.category}} {{ad.model}} ({{ad.year}})</p>
+                        </ion-text>
+                        <ion-text *ngIf="ad.state" color="medium">
+                            <p>{{'State'|translate}}: {{ad.state|translate}}</p>
+                        </ion-text>
+                    </ion-label>
+
+                    <ng-container *ngIf="getOffer(ad._id.toString())|async as offer">
+                        <ion-label mode="ios" style="display: inherit;" *ngIf="offer && !ad.cnt"
+                                   class="ion-text-wrap">
+                            <div class="dot" [class.not_avaible]="offer.not_available"></div>
+                        </ion-label>
+                        <ion-badge color="danger" *ngIf="ad.cnt > 0" slot="end">{{ad.cnt}}</ion-badge>
+                    </ng-container>
+
+                </ion-item>
+            </ion-virtual-scroll>
+        </ng-container>
+
+        <ng-template #empty>
+            <ion-text class="ion-text-center">
+                <p class="ion-padding-horizontal" [routerLink]="['/subscriptions']" [innerHTML]="'ListAllAdsEmpty'|translate"></p>
+            </ion-text>
+        </ng-template>
+
+    </ng-container>
+
+    <ng-template #loading>
+        <p class="spinnerCenter">
+            <ion-spinner color="primary"></ion-spinner>
+        </p>
+    </ng-template>
+
+</ion-content>

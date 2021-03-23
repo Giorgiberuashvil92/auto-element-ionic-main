@@ -1,0 +1,18 @@
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="myAds" *ngIf="this.roleApp == 'client'">
+      <ion-icon name="star"></ion-icon>
+      <ion-label>{{'My'|translate}}</ion-label>
+      <ion-badge color="danger" *ngIf="this.unreadCount>0">{{this.unreadCount}}</ion-badge>
+    </ion-tab-button>
+    <ion-tab-button tab="allAds" *ngIf="this.roleApp == 'seller'">
+      <ion-icon name="list"></ion-icon>
+      <ion-label>{{'All'|translate}}</ion-label>
+      <ion-badge color="danger" *ngIf="this.unreadCount>0">{{this.unreadCount}}</ion-badge>
+    </ion-tab-button>
+    <ion-tab-button tab="settings">
+      <ion-icon name="settings"></ion-icon>
+      <ion-label>{{'Settings'|translate}}</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
